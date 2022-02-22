@@ -1,0 +1,38 @@
+.baner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 155px;
+  justify-content: center;
+  margin: 40px auto 0;
+  width: 680px;
+}
+
+.baner > div {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.baner > div > h2 {
+  color: #130b43;
+  font-size: 31.25px;
+  font-weight: bold;
+  line-height: 138%;
+  margin: 13px 16px;
+}
+
+.baner > div > span {
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #cbc9d9;
+  box-sizing: border-box;
+  color: #5C5589;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: center;
+  min-height: 32px;
+  min-width: 41px;
+  padding: 3px 12px;
+}

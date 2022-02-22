@@ -1,0 +1,59 @@
+header {
+  border-bottom: 1px solid #c8d5ef;
+  width: 100%;
+}
+
+header > .container {
+  align-items: center;
+  display: flex;
+  height: 64px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1440px;
+  padding: 0 32px;
+}
+
+header > .container > .logo {
+  margin-right: 56px;
+}
+
+header > .container > nav > ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+header > .container > nav > ul > li:first-child {
+  color: #130b43;
+}
+
+header > .container > nav > ul > li {
+  font-weight: 600;
+  margin-right: 32px;
+  color: #5c5589;
+  line-height: 24px;
+  display: flex;
+}
+
+header > .container > nav > ul > li > img {
+  margin-right: 16px;
+}
+
+header > .container > .user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+header > .container > .user > img {
+  margin-right: 27px;
+}
+
+header > .container > .user > img.erik {
+  margin-right: 16px;
+}
+
+header > .container > .user > img.dots {
+  margin-right: 0;
+}
