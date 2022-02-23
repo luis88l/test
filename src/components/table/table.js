@@ -3,6 +3,9 @@ import "./style.css";
 import faceIcon from "../../images/faceIcon.svg";
 import chevron from "../../images/chevron.svg";
 import TracksDropdown from "../tracksDropdown/tracksDropsown";
+import RelativeTime from '@yaireo/relative-time'
+
+const relativeTime = new RelativeTime();
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -13,6 +16,10 @@ export default class Table extends React.Component {
       tracksDropdownFlag: false,
       animationFlag: false,
     };
+  }
+
+  componentDidMount() {
+    console.table(this.props.testimonials);
   }
 
   async animation() {
@@ -47,7 +54,31 @@ export default class Table extends React.Component {
             </div>
           </div>
         </div>
-        <div>asdasdasdasd</div>
+        {this.props.testimonials.map((x, index) => {
+          return (
+            <a href="https://www.youtube.com" className="row" key={index}>
+              <div>
+                <img src={x.track.icon_url} className="logo" alt="logo" />
+              </div>
+              <div>
+                <img
+                  src={x.mentor.avatar_url}
+                  className="userProfile"
+                  alt="profile"
+                />
+              </div>
+              <div>
+                <span>{x.mentor.handle}</span>
+                <span>
+                  on {x.exercise.title} in {x.track.title}
+                </span>
+              </div>
+              <div>{x.content}</div>
+              <div>{relativeTime.from(new Date(x.created_at))}</div>
+              <div><img src={chevron} alt="arrow icon" className="chevronSmall" /></div>
+            </a>
+          );
+        })}
       </div>
     );
   }

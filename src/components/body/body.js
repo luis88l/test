@@ -50,6 +50,7 @@ export default class NavBar extends React.Component {
         <Table
           totalTestimonials={this.state.totalTestimonials}
           tracks={this.state.tracks}
+          testimonials={this.state.testimonials}
         />
       </>
     );

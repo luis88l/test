@@ -23,11 +23,17 @@ export default class TracksDropdown extends React.Component {
     super(props);
     this.state = {
       tracks: {},
+      showMore: false,
+      animationFlag:false
     };
   }
 
-  componentDidMount() {
-    console.table(this.props.tracks);
+  async animation() {
+    this.setState({ animationFlag: !this.state.animationFlag });
+
+    await new Promise((r) => setTimeout(r, 200));
+
+    this.setState({ showMore: !this.state.showMore });
   }
 
   render() {
@@ -44,10 +50,24 @@ export default class TracksDropdown extends React.Component {
             .filter((item, index) => index < 5)
             .map((x, index) => {
               return (
-                <>
-                  {console.log(`../../images/${x[0]}.svg`)}
-                  <li key={index}>
-                    <input type="radio" value={"csharp"} />
+                <li key={index}>
+                  <input type="radio" value={x[0]} />
+                  <img
+                    src={require(`../../images/${x[0]}.svg`)}
+                    alt={`${x[0]} icon`}
+                  />
+                  <span>{nombres[x[0]]}</span>
+                  <span>{x[1]}</span>
+                </li>
+              );
+            })}
+          {this.state.showMore &&
+            this.props.tracks
+              .filter((item, index) => index > 4)
+              .map((x, index) => {
+                return (
+                  <li key={index} className={`${this.state.animationFlag}`}>
+                    <input type="radio" value={x[0]} />
                     <img
                       src={require(`../../images/${x[0]}.svg`)}
                       alt={`${x[0]} icon`}
@@ -55,10 +75,16 @@ export default class TracksDropdown extends React.Component {
                     <span>{nombres[x[0]]}</span>
                     <span>{x[1]}</span>
                   </li>
-                </>
-              );
-            })}
+                );
+              })}
         </ul>
+        <span
+          onClick={() => {
+            this.animation();
+          }}
+        >
+          {!this.state.showMore? "Show more" : "Show less"}
+        </span>
       </div>
     );
   }

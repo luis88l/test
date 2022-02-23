@@ -8,7 +8,7 @@
 }
 
 .tableContainer .tableHeader {
-  border-bottom: 1px solid #EAECF3;
+  border-bottom: 1px solid #eaecf3;
   min-height: 64px;
 }
 
@@ -18,7 +18,7 @@
   padding: 16px 24px;
 }
 
-.tableHeaderContainer > div > span{
+.tableHeaderContainer > div > span {
   display: inline-flex;
   align-items: center;
 }
@@ -30,5 +30,86 @@
   width: 13px;
 }
 
+.tableContainer .row {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.tableContainer .row:hover {
+  background-color: #f4f7fd;
+}
+
+.tableContainer .row > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tableContainer .row > div .logo,
+.tableContainer .row > div .userProfile {
+  height: 32px;
+}
+
+.tableContainer .row > div .userProfile {
+  border-radius: 20px;
+}
+
+.tableContainer .row > div:first-child {
+  width: 5%;
+}
+
+.tableContainer .row > div:nth-child(2) {
+  width: 3%;
+}
+
+.tableContainer .row > div:nth-child(3) {
+  flex-direction: column;
+  align-items: start;
+  width: 25%;
+  margin-left: 16px;
+}
+
+.tableContainer .row > div:nth-child(3) > span:first-child {
+  font-size: 16px;
+  color: #130b43;
+  font-weight: 500;
+}
+
+.tableContainer .row > div:nth-child(3) > span:nth-child(2) {
+  font-size: 14px;
+  color: #5c5589;
+  font-weight: 400;
+}
+
+.tableContainer .row > div:nth-child(4) {
+  display: block;
+  width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #3f3a5a;
+}
+
+.tableContainer .row > div:nth-child(5) {
+  width: 18%;
+  justify-content: end;
+  color: #5C5589;
+font-size: 14px;
+}
+
+.tableContainer .row > div:nth-child(6){
+  justify-content: end;
+  width: 5%;
+}
+
+.tableContainer .row > div:nth-child(6) > img {
+  transform: rotate(-90deg);
+  width: 20px;
+  height: 15px;
+  color: #5C5589;
+}
 
 
