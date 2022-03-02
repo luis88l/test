@@ -2,22 +2,6 @@ import React from "react";
 import "./style.css";
 import faceIcon from "../../images/faceIcon.svg";
 
-const nombres = {
-  c: "C",
-  cpp: "C++",
-  csharp: "C#",
-  fsharp: "F#",
-  go: "Go",
-  java: "Java",
-  javascript: "Javascript",
-  php: "PHP",
-  python: "Python",
-  ruby: "Ruby",
-  rust: "Rust",
-  scala: "Scala",
-  typescript: "Typescript",
-};
-
 export default class TracksDropdown extends React.Component {
   constructor(props) {
     super(props);
@@ -51,13 +35,13 @@ export default class TracksDropdown extends React.Component {
             .map((x, index) => {
               return (
                 <li key={index}>
-                  <input type="radio" value={x[0]} />
+                  <input type="radio" value={x.name} />
                   <img
-                    src={require(`../../images/${x[0]}.svg`)}
-                    alt={`${x[0]} icon`}
+                    src={x.icon}
+                    alt={`${x.title} icon`}
                   />
-                  <span>{nombres[x[0]]}</span>
-                  <span>{x[1]}</span>
+                  <span>{x.title}</span>
+                  <span>{x.value}</span>
                 </li>
               );
             })}
@@ -67,13 +51,10 @@ export default class TracksDropdown extends React.Component {
               .map((x, index) => {
                 return (
                   <li key={index} className={`${this.state.animationFlag}`}>
-                    <input type="radio" value={x[0]} />
-                    <img
-                      src={require(`../../images/${x[0]}.svg`)}
-                      alt={`${x[0]} icon`}
-                    />
-                    <span>{nombres[x[0]]}</span>
-                    <span>{x[1]}</span>
+                    <input type="radio" value={x.name} />
+                    <img src={x.icon} alt={`${x.title} icon`} />
+                    <span>{x.title}</span>
+                    <span>{x.value}</span>
                   </li>
                 );
               })}

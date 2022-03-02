@@ -11,6 +11,7 @@ export default class NavBar extends React.Component {
       totalTestimonials: 0,
       testimonials: [],
       tracks: {},
+      pagination:{}
     };
   }
 
@@ -19,19 +20,51 @@ export default class NavBar extends React.Component {
   }
 
   async iniciacion() {
-    await fetch("https://exercism.org/api/v2/hiring/testimonials", {
+    await fetch(
+      "https://exercism.org/api/v2/hiring/testimonials?page=1&&order=newest_first",
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.table(data);
+
+        this.getTracks(data.testimonials.track_counts);
+
+        this.setState({
+          totalTestimonials: data.testimonials.pagination.total_count,
+          testimonials: data.testimonials.results,
+          pagination: data.testimonials.pagination
+        });
+      });
+  }
+
+  async getTracks(array) {
+    await fetch("https://exercism.org/api/v2/tracks", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
-        console.table(data);
-        let entries = Object.entries(data.testimonials.track_counts);
+        let arrayTraks = [];
 
-        let sorted = entries.sort((a, b) => b[1] - a[1]);
+        for (let a in array) {
+          let r = data.tracks.find(({ slug }) => slug === a);
+          arrayTraks.push({
+            name: r.slug,
+            title: r.title,
+            icon: r.icon_url,
+            value: array[a],
+          });
+        }
+
+        let x = arrayTraks.slice(0);
+        x.sort(function (a, b) {
+          return b.value - a.value;
+        });
+
         this.setState({
-          totalTestimonials: data.testimonials.pagination.total_count,
-          tracks: sorted,
-          testimonials: data.testimonials.results,
+          tracks: x,
         });
       });
   }
@@ -43,14 +76,14 @@ export default class NavBar extends React.Component {
           <img src={smileyFace} alt="smile icon" />
           <div>
             <h2>Testimonials I’ve left</h2>
-            <span>{this.state.totalTestimonials}</span>
+            <span>{this.state.pagination.total_count}</span>
           </div>
           <img src={iconoLineas} alt="icono" />
         </div>
         <Table
-          totalTestimonials={this.state.totalTestimonials}
           tracks={this.state.tracks}
           testimonials={this.state.testimonials}
+          pagination={this.state.pagination}
         />
       </>
     );

@@ -1,7 +1,7 @@
 .tableContainer {
   border-radius: 8px;
   box-shadow: 0px 4px 42px rgba(79, 114, 205, 0.15);
-  margin: 36px auto 0;
+  margin: 36px auto 15px;
   max-width: 1360px;
   min-height: 500px;
   width: 100%;
@@ -96,11 +96,11 @@
 .tableContainer .row > div:nth-child(5) {
   width: 18%;
   justify-content: end;
-  color: #5C5589;
-font-size: 14px;
+  color: #5c5589;
+  font-size: 14px;
 }
 
-.tableContainer .row > div:nth-child(6){
+.tableContainer .row > div:nth-child(6) {
   justify-content: end;
   width: 5%;
 }
@@ -109,7 +109,111 @@ font-size: 14px;
   transform: rotate(-90deg);
   width: 20px;
   height: 15px;
-  color: #5C5589;
+  color: #5c5589;
 }
 
+.tableContainer .pagination {
+  align-items: center;
+  border-top: 1px solid #eaecf3;
+  display: flex;
+  height: 64px;
+}
 
+.tableContainer .pagination .buttonPrevious,
+.tableContainer .pagination .buttonNext {
+  align-items: center;
+  background-color: #e0e0ed;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  height: 40px;
+  margin-left: 32px;
+  padding: 0px;
+  width: 114px;
+}
+
+.tableContainer .pagination .buttonNext {
+  width: 85px;
+  margin-left: auto;
+  margin-right: 32px;
+}
+
+.tableContainer .pagination .buttonPrevious > img {
+  margin-right: 10px;
+  margin-left: 16px;
+  opacity: 0.7;
+  transform: rotate(180deg);
+}
+
+.tableContainer .pagination .buttonPrevious > span,
+.tableContainer .pagination .buttonNext > span {
+  font-size: 14px;
+  color: #76709f;
+  font-weight: 500;
+  opacity: 0.7;
+  font-family: Poppins;
+}
+
+.tableContainer .pagination .buttonNext > span {
+  margin-right: 10px;
+  margin-left: 16px;
+}
+
+.tableContainer .pagination .buttonNext > img {
+  opacity: 0.7;
+}
+
+.tableContainer .pagination .buttonPrevious.enable,
+.tableContainer .pagination .buttonNext.enable {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #d5d8e4;
+  box-shadow: 0px 1px 0px 1px rgb(203 201 217 / 60%);
+  box-sizing: border-box;
+}
+
+.tableContainer .pagination .buttonPrevious.enable > span,
+.tableContainer .pagination .buttonNext.enable > span {
+  opacity: 1;
+  color: #5c5589;
+}
+
+.tableContainer .pagination .buttonNext.enable > img,
+.tableContainer .pagination .buttonPrevious.enable > img {
+  opacity: 1;
+}
+
+.tableContainer .pagination .paginationPills {
+  margin-left: auto;
+  min-width: 465px;
+}
+
+.tableContainer .pagination .paginationPills > button {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #d5d8e4;
+  color: #5c5589;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+
+  margin-right: 12px;
+  padding: 8px 16px 8px 16px;
+}
+
+.tableContainer .pagination .paginationPills > button.pill:hover {
+  background-color: #e1ebff;
+  border: 1px solid #76709f;
+  color: #130b43;
+  cursor: pointer;
+}
+
+.tableContainer .pagination .paginationPills > button.selected {
+  background-color: #e1ebff;
+  border: 1px solid #76709f;
+  color: #130b43;
+}
+
+.tableContainer .pagination .paginationPills > button.dots {
+  border: 0;
+}
