@@ -39,7 +39,7 @@
 }
 
 .tracksContainer > span {
-  color: #5C5589;
+  color: #5c5589;
   margin: 15px auto;
   display: block;
   text-align: center;
@@ -58,11 +58,16 @@
   height: 56px;
 }
 
-.tracksContainer ul li > input[type="radio"] {
-  width: 21px;
+.tracksContainer ul li > span:nth-child(1) {
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #5c5589;
+  display: flex;
   height: 21px;
-  margin-right: 26px;
+  justify-content: center;
   margin-left: 24px;
+  margin-right: 26px;
+  width: 21px;
 }
 
 .tracksContainer ul li > img {
@@ -88,9 +93,29 @@
   margin-left: auto;
   margin-right: 24px;
   padding: 3px 12px;
-  color: #5C5589;
+  color: #5c5589;
 }
 
-.tracksContainer ul li:hover{
-  background-color: #F0F3F9;
+.tracksContainer ul li:hover {
+  background-color: #f0f3f9;
+  cursor: pointer;
+}
+
+.tracksContainer ul li.selected {
+  background-color: #f0f3f9;
+  cursor: auto;
+}
+
+.tracksContainer ul li:hover > span:nth-child(1) > span,
+.tracksContainer ul li.selected > span:nth-child(1) > span {
+  width: 9px;
+  height: 9px;
+  background-color: #3f3a5a;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.tracksContainer ul li:hover > span:last-child,
+.tracksContainer ul li.selected > span:last-child {
+  color: #130b43;
 }

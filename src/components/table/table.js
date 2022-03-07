@@ -28,7 +28,7 @@ export default class Table extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     console.log(this.state.loading);
     // console.log(this.props.testimonials);
     this.paginationIni(this.props.pagination);
@@ -174,10 +174,10 @@ export default class Table extends React.Component {
         console.log(data); 
 
         let tes =
-            y === 0
+            y === 0 
               ? data.testimonials.results.slice(10)
               : data.testimonials.results.slice(0, 10),
-          tesAux =
+          tesAux = 
             y === 0
               ? data.testimonials.results.slice(0, 10)
               : data.testimonials.results.slice(10),

@@ -15,7 +15,7 @@ export default class TracksDropdown extends React.Component {
   async animation() {
     this.setState({ animationFlag: !this.state.animationFlag });
 
-    await new Promise((r) => setTimeout(r, 200));
+    await new Promise((r) => setTimeout(r, 200)); 
 
     this.setState({ showMore: !this.state.showMore });
   }
@@ -24,8 +24,8 @@ export default class TracksDropdown extends React.Component {
     return (
       <div className={`tracksContainer ${this.props.animation}`}>
         <ul>
-          <li>
-            <input type="radio" value={"all"} />
+          <li className="selected">
+            <span className="radioButton"><span></span></span>
             <img src={faceIcon} alt="face icon" />
             <span>All</span>
             <span>{this.props.totalTestimonials}</span>
@@ -35,11 +35,10 @@ export default class TracksDropdown extends React.Component {
             .map((x, index) => {
               return (
                 <li key={index}>
-                  <input type="radio" value={x.name} />
-                  <img
-                    src={x.icon}
-                    alt={`${x.title} icon`}
-                  />
+                  <span className="radioButton">
+                    <span></span>
+                  </span>
+                  <img src={x.icon} alt={`${x.title} icon`} />
                   <span>{x.title}</span>
                   <span>{x.value}</span>
                 </li>
@@ -51,7 +50,9 @@ export default class TracksDropdown extends React.Component {
               .map((x, index) => {
                 return (
                   <li key={index} className={`${this.state.animationFlag}`}>
-                    <input type="radio" value={x.name} />
+                    <span className="radioButton">
+                      <span></span>
+                    </span>
                     <img src={x.icon} alt={`${x.title} icon`} />
                     <span>{x.title}</span>
                     <span>{x.value}</span>

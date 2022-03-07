@@ -17,14 +17,14 @@ export default class NavBar extends React.Component {
 
   componentDidMount() {
     this.iniciacion();
-  }
+  } 
 
   async iniciacion() {
     await fetch(
       "https://exercism.org/api/v2/hiring/testimonials?page=1&&order=newest_first",
       {
         method: "GET",
-      }
+      } 
     )
       .then((response) => response.json())
       .then((data) => {
