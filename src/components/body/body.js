@@ -28,7 +28,7 @@ export default class NavBar extends React.Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.table(data);
+        console.table(data); 
 
         this.getTracks(data.testimonials.track_counts);
 

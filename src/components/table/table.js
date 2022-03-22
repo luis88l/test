@@ -2,10 +2,10 @@ import React from "react";
 import "./style.css";
 import faceIcon from "../../images/faceIcon.svg";
 import chevron from "../../images/chevron.svg";
-import arrowSide from "../../images/arrowSide.svg";
 import TracksDropdown from "../tracksDropdown/tracksDropsown";
 import RelativeTime from "@yaireo/relative-time";
 import Loader from "../loader/loader";
+import Pagination from "../pagination/pagination";
 
 const relativeTime = new RelativeTime();
 
@@ -24,18 +24,22 @@ export default class Table extends React.Component {
       range: [],
       loading: true,
       url: "https://exercism.org/api/v2/hiring/testimonials?",
-      orderUrl: "newest_first"
+      orderUrl: "newest_first",
+      numberOfPages: 20,
     };
   }
 
-  componentDidMount() { 
-    console.log(this.state.loading);
+  componentDidMount() {
     // console.log(this.props.testimonials);
-    this.paginationIni(this.props.pagination);
     this.setState({
       testimonials: this.props.testimonials.slice(0, 10),
       testimonialsAux: this.props.testimonials.slice(10),
-      totalPages: this.props.pagination.total_pages * 2,
+      totalPages:
+        this.props.pagination.total_pages * this.state.numberOfPages -
+          this.props.pagination.total_count >
+        10
+          ? this.props.pagination.total_pages * 2 - 1
+          : this.props.pagination.total_pages * 2,
       loading: false,
       // range: this.pageRange(1, this.props.pagination.total_pages * 2),
     });
@@ -49,113 +53,15 @@ export default class Table extends React.Component {
     this.setState({ tracksDropdownFlag: !this.state.tracksDropdownFlag });
   }
 
-  pageRange(start, end) {
-    // console.log(start, end);
-    let length = end - start + 1;
-
-    // console.log(length);
-    // console.log(Array.from({ length }, (_, idx) => idx + start));
-
-    return Array.from({ length }, (_, idx) => idx + start);
-  }
-
-  paginationIni(pages) {
-    console.log(pages);
-    if (pages.total_pages < 7) {
-      this.setState({
-        range: this.pageRange(1, pages.total_pages),
-      });
-    } else if (pages.total_pages) {
-      let auxArray = [];
-      auxArray = auxArray.concat(this.pageRange(1, 3));
-      auxArray.push("dots");
-      auxArray = auxArray.concat(
-        this.pageRange(pages.total_pages * 2 - 2, pages.total_pages * 2)
-      );
-
-      // console.log(auxArray);
-
-      this.setState({
-        range: auxArray,
-      });
-    }
-  }
-
-  changePage(nextPage) {
-    if (nextPage !== this.state.currentPage) {
-      this.tablePopulation(nextPage);
-      // console.log(this.props.pagination.total_pages * 2 - nextPage);
-      if (
-        this.props.pagination.total_pages * 2 - nextPage < 7 &&
-        this.props.pagination.total_pages * 2 - nextPage >= 23
-      ) {
-        this.setState({
-          currentPage: nextPage,
-          range: this.pageRange(
-            nextPage,
-            this.props.pagination.total_pages * 2
-          ),
-        });
-      } else if (this.props.pagination.total_pages * 2 - nextPage < 6) {
-        let auxArray = [];
-        auxArray.push(nextPage - 1);
-        auxArray = auxArray.concat(
-          this.pageRange(nextPage, this.props.pagination.total_pages * 2)
-        );
-        this.setState({
-          currentPage: nextPage,
-          range: auxArray,
-        });
-      } else {
-        let auxArray = [];
-
-        if (nextPage !== 1) {
-          auxArray.push(nextPage - 1);
-          auxArray = auxArray.concat(this.pageRange(nextPage, nextPage + 1));
-        } else {
-          auxArray = auxArray.concat(this.pageRange(nextPage, nextPage + 2));
-        }
-
-        auxArray.push("dots");
-        auxArray = auxArray.concat(
-          this.pageRange(
-            this.props.pagination.total_pages * 2 - 2,
-            this.props.pagination.total_pages * 2
-          )
-        );
-
-        // console.log(auxArray);
-
-        this.setState({
-          currentPage: nextPage,
-          range: auxArray,
-        });
-      }
-    }
-  }
-
-  tablePopulation(page) {
-    console.log(page);
-    if (page === this.state.auxPage) {
-      this.setState({
-        testimonials: this.state.testimonialsAux,
-        testimonialsAux: this.state.testimonials,
-        auxPage: this.state.currentPage,
-      });
-    } else {
-      this.getDataByPage(page);
-    }
-  }
-
   async getDataByPage(filter) {
-    console.log("enre")
-    this.setState({loading:true})
+    console.log("enre");
+    this.setState({ loading: true });
     let url = this.state.url,
       y = filter % 2,
-      x = 0
+      x = 0;
 
-      console.log(y)
-      console.log( y === 0 ? filter - 1 : filter + 1)
+    console.log(y);
+    console.log(y === 0 ? filter - 1 : filter + 1);
 
     if (y === 0) {
       x = filter / 2;
@@ -164,34 +70,39 @@ export default class Table extends React.Component {
     }
     url = url.concat("page=" + x);
 
-    url = url.concat("&order="+this.state.orderUrl)
+    url = url.concat("&order=" + this.state.orderUrl);
 
     await fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data); 
+        console.log(data);
 
         let tes =
-            y === 0 
+            y === 0
               ? data.testimonials.results.slice(10)
               : data.testimonials.results.slice(0, 10),
-          tesAux = 
+          tesAux =
             y === 0
               ? data.testimonials.results.slice(0, 10)
               : data.testimonials.results.slice(10),
-              pageAux = y === 0 ? filter - 1 : filter + 1
+          pageAux = y === 0 ? filter - 1 : filter + 1;
 
         console.log(tes);
         console.log(tesAux);
 
-        this.setState({
-          testimonials: tes,
-          testimonialsAux: tesAux,
-          auxPage: pageAux,
-          loading:false
-        },()=>{console.log(this.state.auxPage)});
+        this.setState(
+          {
+            testimonials: tes,
+            testimonialsAux: tesAux,
+            auxPage: pageAux,
+            loading: false,
+          },
+          () => {
+            console.log(this.state.auxPage);
+          }
+        );
       });
     console.log(url);
   }
@@ -256,7 +167,8 @@ export default class Table extends React.Component {
             );
           })}
         </div>
-        <div className="pagination">
+        <Pagination totalPages={this.state.totalPages} />
+        {/* <div className="pagination">
           <button
             className={`buttonPrevious ${
               this.state.currentPage === 1 ? "" : "enable"
@@ -307,7 +219,7 @@ export default class Table extends React.Component {
             <span>Next</span>
             <img src={arrowSide} alt="arrow icon" />
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }
